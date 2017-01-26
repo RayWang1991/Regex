@@ -1,0 +1,25 @@
+$/ = ".\n"; # set a special "chunk-mode", chunks end with a NL combinatio
+while(<>){
+  next unless s{ # regex starts here
+      ### need to match one word.
+      \b
+      ([a-z]+) # store in \1
+      ### now need to allow any number of spaces and <tags>
+      (        # store in \2
+          (?:
+             \s
+             |
+             <[^>]+>
+          )+
+      )
+      ### match \1 again
+      (\1\b) # store in \3
+}{
+     # replacement
+     \e[7m$1\e[m$2\e[7m$3\e[m}igx; # the \e in Perl means to ASCII escape
+                                  # \e[7m means to start the highlightin
+                                  # while \e[m ends it.
+     s/^(?:[^\e]+\n)+//mg; # delete lines that does not contain \e 
+     s/^/$ARGV: /mg;      # add file name in each line 
+     print;
+     }

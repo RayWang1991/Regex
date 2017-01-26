@@ -1,0 +1,6 @@
+$testStr = "123456";
+if($testStr =~ m/^[0-9]+$/){
+    print "only digits! \n"
+}else{
+    print "not only digits! \n"
+}

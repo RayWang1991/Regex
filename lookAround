@@ -1,0 +1,27 @@
+$string1 = "Jimmy took Jeffs bag, and threw it away.";
+$string1 =~s/(?<=\bJeff)(?=s\b)/'/g;
+print "$string1\n";
+$string2 = "There are 123456789kg food.";
+$string2 =~ s/(?<=\d)(?=(\d\d\d)+(?!\d))/,/g;
+print "$string2\n";
+
+undef $/;
+$text = <>;
+$text =~ s/&/amp;/g; # replace &
+$text =~ s/</&lt;/g; # replace <
+$text =~ s/>/&gt;/g; # replace >
+
+$text =~ s/\s*$/<p>/mg;
+
+$text =~ s{
+    \b
+        ( 
+         \w[-.\w]* # the username
+         \@
+         ([-a-z0-9]+\.[-a-z0-9]+)*\.(com|edu|cn) # hostname
+        ) 
+    \b
+}
+{<a href="mailTo:$1">$1</a>}gix;
+
+print $text;
